@@ -39,3 +39,19 @@ Response regDevice(String name) {
   }
   return response;
 }
+
+/* Poll Update
+   Command: "POLL [Device Name] [Access TOKEN] [Last status] [Optional Content]"
+   Response:
+      Pool success:          "[New Status]"
+      Access Denined:        "Access Denined"
+   Comment:
+      Poll new command from server.
+*/
+Response pollUpdate(PoolContent poolContent) {
+  Response response = sendToHost("POLL " + poolContent.toString());
+  if (!response.success || (response.content == ACCESS_DENINED)) {
+    response.success = false;
+  }
+  return response;
+}

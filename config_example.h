@@ -1,26 +1,15 @@
 #ifndef X_CONFIG_H_   /* Include guard */
 #define X_CONFIG_H_
 
-#define ssid "Wi-Fi SSID"
-#define password "Wi-Fi Password"
+static String ssid = "Wi-Fi SSID";
+static String password = "Wi-Fi Password";
 
-#define host "IP or Domain Name"
-#define port PortNum
+static const char* host = "IP or Domain Name";
+static uint16_t port = PortNum;
 
-#define deviceName "Device Name"
+static const String  deviceName = "Device Name";
 // SHA1 fingerprint of the certificate
-#define fingerprint "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00"
-
-#define D0 16
-#define D1  5
-#define D2  4
-#define D3  0
-#define D4  2
-#define D5 14
-#define D6 12
-#define D7 13
-#define D8 15
-#define D9  3
-#define D10 1
+static const char* fingerprint = "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00";
+static const char* token = "token";
 
 #endif

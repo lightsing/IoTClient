@@ -15,6 +15,22 @@ struct Response{
 String appendHashToString(String content, String authString);
 Response sendToHost(String content);
 
-Response regDevice(String name);
 #define ACCESS_DENINED "Access Denined"
+
+Response regDevice(String name);
+
+struct PoolContent{
+  String deviceName = "";
+  String accessToken = "";
+  String lastStatus = "";
+  String optional = "";
+  String toString(){
+    return deviceName  + " " +
+           accessToken + " " +
+           lastStatus  + " " +
+           optional;
+  }
+};
+
+
 #endif
