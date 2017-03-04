@@ -34,24 +34,30 @@ Response sendToHost(String content) {
 */
 Response regDevice(String name) {
   Response response = sendToHost("REG " + name);
-  if (!response.success || (response.content == ACCESS_DENINED)) {
+  if (response.content == ACCESS_DENINED) {
     response.success = false;
   }
   return response;
 }
 
 /* Poll Update
-   Command: "POLL [Device Name] [Access TOKEN] [Last status] [Optional Content]"
+   Command: "POLL [Access TOKEN] [Last status] [Optional Content]"
    Response:
-      Pool success:          "[New Status]"
+      poll success:          "[New Status]"
       Access Denined:        "Access Denined"
    Comment:
       Poll new command from server.
 */
-Response pollUpdate(PoolContent poolContent) {
-  Response response = sendToHost("POLL " + poolContent.toString());
-  if (!response.success || (response.content == ACCESS_DENINED)) {
-    response.success = false;
+PollResponse pollUpdate(PollContent pollContent) {
+  PollResponse pollResponse;
+  pollResponse.response = sendToHost("POLL " + pollContent.toString());
+  if (pollResponse.response.content == ACCESS_DENINED) {
+    pollResponse.response.success = false;
+  } else {
+    if (pollContent.lastStatus != pollResponse.response.content) {
+      pollResponse.changeStatus = true;
+      pollResponse.newStatus = pollResponse.response.content;
+    }
   }
-  return response;
+  return pollResponse;
 }

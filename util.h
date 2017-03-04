@@ -8,8 +8,8 @@
 #include "config.h"
 
 struct Response{
-  bool success;
-  String content;
+  bool success = false;
+  String content = "";
 };
 
 String appendHashToString(String content, String authString);
@@ -19,18 +19,22 @@ Response sendToHost(String content);
 
 Response regDevice(String name);
 
-struct PoolContent{
-  String deviceName = "";
+struct PollContent{
   String accessToken = "";
   String lastStatus = "";
   String optional = "";
   String toString(){
-    return deviceName  + " " +
-           accessToken + " " +
+    return accessToken + " " +
            lastStatus  + " " +
            optional;
   }
 };
 
+struct PollResponse{
+  Response response;
+  bool changeStatus = false;
+  String newStatus = "";
+};
+PollResponse pollUpdate(PollContent poolContent);
 
 #endif
